@@ -25,11 +25,21 @@ export class TaskService {
     return task;
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskDto: UpdateTaskDto) {
+    const file = await this.findAll();
+
+    const index = file.findIndex((task) => task.id == id);
+    file[index] = { ...file[index], ...updateTaskDto };
+
+    await fs.writeFile(DATABASE_PATH, JSON.stringify(file));
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: string) {
+    const file = await this.findAll();
+
+    const index = file.findIndex((task) => task.id == id);
+    file.splice(index, 1);
+
+    await fs.writeFile(DATABASE_PATH, JSON.stringify(file));
   }
 }
