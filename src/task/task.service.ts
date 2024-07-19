@@ -61,7 +61,7 @@ export class TaskService {
     await fs.writeFile(DATABASE_PATH, JSON.stringify(file));
   }
 
-  @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(CronExpression.EVERY_30_SECONDS)
   async handleCron() {
     const currentDate = new Date();
     const miliSecondsDate = currentDate.getTime();
@@ -70,9 +70,9 @@ export class TaskService {
 
     tasks.map((task) => {
       const date = new Date(task.scheduledTime ?? 0);
-      const miliSeconds = date.getTime();
-      const milliSecondsLeft = miliSeconds - miliSecondsDate;
-      if (miliSeconds < miliSecondsDate) return console.log('Ya paso');
+      const prevMiliSeconds = date.getTime();
+      const milliSecondsLeft = prevMiliSeconds - miliSecondsDate;
+      if (prevMiliSeconds < miliSecondsDate) return console.log('Ya paso');
       if (milliSecondsLeft < 43200000) {
         const hoursDiff = date.getHours() - currentDate.getHours();
         console.log(`La tarea ${task.id} vence en ${hoursDiff} horas`);
