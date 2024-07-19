@@ -1,7 +1,15 @@
+import { IsNumber, IsString, MaxLength } from 'class-validator';
+
 export class Task {
+  @IsString()
   id: string;
+  @IsString()
   name: string;
+  @IsString()
+  @MaxLength(30)
   description: string;
-  scheduledTime?: Date;
-  priority: number;
+  @IsString()
+  scheduledTime?: string;
+  @IsNumber()
+  priority?: number;
 }
