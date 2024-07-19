@@ -3,5 +3,5 @@ export class CreateTaskDto {
   name: string;
   description: string;
   scheduledTime?: Date;
-  priority: number;
+  priority?: number;
 }
