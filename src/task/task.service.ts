@@ -61,7 +61,7 @@ export class TaskService {
     await fs.writeFile(DATABASE_PATH, JSON.stringify(file));
   }
 
-  @Cron(CronExpression.EVERY_30_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     const currentDate = new Date();
     const miliSecondsDate = currentDate.getTime();
